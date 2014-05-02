@@ -24,8 +24,8 @@ const int DTMF_freq2[] = {  941,  697,  697,  697,  770,  770,  770,  852,  852,
 const int MF_freq1[] = { 1300, 700,  700,  900,  700,  900, 1100,  700,  900, 1100,     700,     900,  1100,     1300,  1500,       2600};
 const int MF_freq2[] = { 1500, 900, 1100, 1100, 1300, 1300, 1300, 1500, 1500, 1500,    1700,    1700,  1700,     1700,  1700,       2600};
 //
-const int TONE_LENGTH = 75;     // Min 40 for detection on LED (ms)
-const int TONE_WAIT = 75;       // This is how long to wait after triggering a [DT]MF call (ms)
+const int TONE_LENGTH = 200;     // Min 40 for detection on LED (ms)
+const int TONE_WAIT = 125;       // This is how long to wait after triggering a [DT]MF call (ms)
 const int TONE_LOOP_WAIT = 2000; // Wait this long after loop (ms)
 //
 //Keypad setups
@@ -103,7 +103,7 @@ void loop()
            playMF(phone_number[9], TONE_LENGTH);
            break;
         case '*': // Key Pulse or KP
-           playMF(phone_number[12], 120);
+           playMF(phone_number[12], TONE_LENGTH);
            break;
         case '0':
            playMF(phone_number[0], TONE_LENGTH);
@@ -115,7 +115,7 @@ void loop()
            playMF(phone_number[14], TONE_LENGTH); 
            break;
        }
-    //delay(150);
+    delay(120);
     } 
   }
 }
