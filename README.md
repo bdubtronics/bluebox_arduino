@@ -4,9 +4,12 @@ Input from 4x4 matrix keypad to ouput dtmf and mf tones.
 
 MF all digits 0-9 represent themselves and
 KP = * 
+
 ST = # 
+
 2600Hz = A
-B,C,D currently unused
+
+. B,C,D currently unused
 
 DTMF all keys are mapped to represent themselves.
 
