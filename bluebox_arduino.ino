@@ -3,12 +3,9 @@
 // http://en.wikipedia.org/wiki/Blue_box
 // ^^^ MF/DTMF freqs can be found on wiki page
 // 2600Hz should always be 1500ms duration 
-// [DT]MF tones 75 or 120ms duration       
+// [DT]MF tones 120ms duration       
 // After trunk seizure, MF is KP+digits+ST (KP,x,y,z,ST) e.g.
-// To dial MF 101 (13,1,0,1,ST) = playMF(phone_number[13], TONE_LENGTH); 
-//                                playMF(phone_number[1], TONE_LENGTH); 
-//                                playMF(phone_number[0], TONE_LENGTH); 
-//                                playMF(phone_number[14], TONE_LENGTH);
+/
 //
 #include <Tone.h>
 #include <Keypad.h>
@@ -24,9 +21,7 @@ const int DTMF_freq2[] = {  941,  697,  697,  697,  770,  770,  770,  852,  852,
 const int MF_freq1[] = { 1300, 700,  700,  900,  700,  900, 1100,  700,  900, 1100,     700,     900,  1100,     1300,  1500,       2600};
 const int MF_freq2[] = { 1500, 900, 1100, 1100, 1300, 1300, 1300, 1500, 1500, 1500,    1700,    1700,  1700,     1700,  1700,       2600};
 //
-const int TONE_LENGTH = 200;     // Min 40 for detection on LED (ms)
-const int TONE_WAIT = 125;       // This is how long to wait after triggering a [DT]MF call (ms)
-const int TONE_LOOP_WAIT = 2000; // Wait this long after loop (ms)
+const int TONE_LENGTH = 120;     // 120ms for KP (per spec) , so we will make all mf tones 120ms. SF2600hz needs 1500ms.
 //
 //Keypad setups
 const byte ROWS = 4; //four rows
@@ -48,8 +43,8 @@ Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS
 void setup()
 {
   Serial.begin(9600);
-  freq1.begin(11);
-  freq2.begin(12);
+  freq1.begin(10);
+  freq2.begin(11);
 }
 
 void playDTMF(uint8_t number, long duration)
@@ -115,7 +110,7 @@ void loop()
            playMF(phone_number[14], TONE_LENGTH); 
            break;
        }
-    delay(120);
+    delay(120); // wait 120ms before able to send next tone(s)
     } 
   }
 }
